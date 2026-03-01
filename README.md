@@ -14,3 +14,16 @@ This project is bootstrapped using Nextjs.
 ## Context
 
 I used Nextjs because it plays well with Tailwind and with Docker, and is easy to get up and running.
+
+## Possible To-dos
+
+- localize
+- custom dropdown
+- add tailwind base classes (ex h1-h6)
+
+## Features
+
+- loading state (submit CTA)
+- error handling
+- responsiveness (table scroll)
+- memoized complex functions (tax rate table)

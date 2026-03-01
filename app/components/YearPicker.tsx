@@ -7,10 +7,7 @@ function YearPicker({
 }) {
   return (
     <div className="flex flex-col items-start gap-4">
-      <label
-        htmlFor="year"
-        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-      >
+      <label htmlFor="year" className="text-sm font-medium text-gray-700">
         Select a tax year:
       </label>
       <select

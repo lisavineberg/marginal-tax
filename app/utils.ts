@@ -8,9 +8,10 @@ export function formatCurrency(amount: number): string {
   return formatter.format(amount);
 }
 
-export function calculateMarginalTax(salary: number, taxRate: TaxRate): string {
+export function calculateMarginalTax(salary: number, taxRate: TaxRate): number {
+  console.log("Calculating tax for salary:", salary, "with tax rate:", taxRate);
   if (salary <= taxRate.min) {
-    return formatCurrency(0);
+    return 0;
   }
 
   const taxableIncome = taxRate.max
@@ -18,5 +19,5 @@ export function calculateMarginalTax(salary: number, taxRate: TaxRate): string {
     : salary - taxRate.min;
 
   const tax = Math.round(taxableIncome * taxRate.rate * 10000) / 10000;
-  return formatCurrency(tax);
+  return tax;
 }

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { type TaxRate } from "../page";
 import { formatCurrency, calculateMarginalTax } from "../utils";
 
@@ -8,8 +9,19 @@ function TaxRateTable({
   taxRates: TaxRate[];
   salary: number;
 }) {
+  const modifiedTaxRates = useMemo(() => {
+    return taxRates.map((rate) => ({
+      ...rate,
+      tax: calculateMarginalTax(salary, rate),
+    }));
+  }, [taxRates, salary]);
+
+  const totalTax = useMemo(() => {
+    return modifiedTaxRates.reduce((total, rate) => total + rate.tax, 0);
+  }, [modifiedTaxRates]);
+
   return (
-    <table className="min-w-full divide-y divide-gray-200 mt-8">
+    <table className="min-w-full divide-y divide-gray-200 overflow-x-auto block">
       <thead className="bg-gray-50">
         <tr>
           <th
@@ -39,7 +51,7 @@ function TaxRateTable({
         </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-200">
-        {taxRates.map((rate, index) => (
+        {modifiedTaxRates.map((rate, index) => (
           <tr key={index}>
             <td className="px-6 py-4 whitespace-nowrap">
               {formatCurrency(rate.min)}
@@ -50,7 +62,7 @@ function TaxRateTable({
               {(rate.rate * 100.0).toFixed(2)}%
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
-              {calculateMarginalTax(salary, rate)}
+              {formatCurrency(rate.tax)}
             </td>
           </tr>
         ))}
@@ -58,27 +70,10 @@ function TaxRateTable({
           <td className="px-6 py-4 whitespace-nowrap font-bold">Total</td>
           <td className="px-6 py-4 whitespace-nowrap"></td>
           <td className="px-6 py-4 whitespace-nowrap font-bold">
-            {formatCurrency(
-              taxRates.reduce((total, rate) => {
-                const tax = parseFloat(
-                  calculateMarginalTax(salary, rate).replace(/[^0-9.-]+/g, ""),
-                );
-                return total + tax;
-              }, 0),
-            )}
+            {formatCurrency(totalTax)}
           </td>
           <td className="px-6 py-4 whitespace-nowrap font-bold">
-            {(
-              (taxRates.reduce((total, rate) => {
-                const tax = parseFloat(
-                  calculateMarginalTax(salary, rate).replace(/[^0-9.-]+/g, ""),
-                );
-                return total + tax;
-              }, 0) /
-                salary) *
-              100
-            ).toFixed(2)}
-            %
+            {((totalTax / salary) * 100).toFixed(2)}%
           </td>
         </tr>
       </tbody>

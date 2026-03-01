@@ -1,4 +1,4 @@
-"use client";
+"use client"; // This is a client component because it uses useState and fetches data from an API
 import { useState } from "react";
 
 import SalaryInput from "./components/SalaryInput";
@@ -25,6 +25,11 @@ export default function Home() {
 
     if (!salary || !year) {
       setError("Please fill in all fields.");
+      return;
+    }
+
+    if (salary < 0) {
+      setError("Salary must be a positive number.");
       return;
     }
 
@@ -55,12 +60,15 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <h1 className="text-5xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-7xl">
+    <div className="flex min-h-screen items-center justify-start bg-zinc-50 font-sans">
+      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-4 px-16 bg-white sm:items-start">
+        <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-7xl">
           Welcome to Lisa&apos;s marginal tax calculator.
         </h1>
-        <form onSubmit={handleFormSubmit}>
+        <form
+          className="w-full flex flex-col gap-y-4"
+          onSubmit={handleFormSubmit}
+        >
           <SalaryInput
             setSalary={setSalary}
             setTaxRates={setTaxRates}
@@ -72,7 +80,7 @@ export default function Home() {
           {error && <p className="text-red-500">{error}</p>}
           <button
             type="submit"
-            className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
           >
             {loading ? "Calculating..." : "Calculate"}
           </button>
