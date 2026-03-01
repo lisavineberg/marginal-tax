@@ -1,7 +1,11 @@
+import { TaxRate } from "../page";
+
 function SalaryInput({
   setSalary,
+  setTaxRates,
 }: {
   setSalary: React.Dispatch<React.SetStateAction<number | null>>;
+  setTaxRates: React.Dispatch<React.SetStateAction<TaxRate[] | null>>;
 }) {
   return (
     <div>
@@ -18,7 +22,11 @@ function SalaryInput({
           id="salary"
           className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
           placeholder="0.00"
-          onChange={(e) => setSalary(Number(e.target.value))}
+          onChange={(e) => {
+            const value = Number(e.target.value);
+            setSalary(value);
+            setTaxRates(null);
+          }}
         />
       </div>
     </div>

@@ -6,7 +6,7 @@ import YearPicker from "./components/YearPicker";
 import TaxRateTable from "./components/TaxRateTable";
 
 export type TaxRate = {
-  max: number;
+  max?: number;
   min: number;
   rate: number;
 };
@@ -61,7 +61,10 @@ export default function Home() {
           Welcome to Lisa&apos;s marginal tax calculator.
         </h1>
         <form onSubmit={handleFormSubmit}>
-          <SalaryInput setSalary={setSalary}></SalaryInput>
+          <SalaryInput
+            setSalary={setSalary}
+            setTaxRates={setTaxRates}
+          ></SalaryInput>
           <YearPicker
             selectedYear={selectedYear}
             setSelectedYear={setSelectedYear}
@@ -73,7 +76,9 @@ export default function Home() {
           >
             {loading ? "Calculating..." : "Calculate"}
           </button>
-          {taxRates && <TaxRateTable taxRates={taxRates}></TaxRateTable>}
+          {taxRates && salary !== null && (
+            <TaxRateTable taxRates={taxRates} salary={salary}></TaxRateTable>
+          )}
         </form>
       </main>
     </div>
