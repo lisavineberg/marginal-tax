@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { type TaxRate } from "../page";
-import { formatCurrency, calculateMarginalTax } from "../utils";
+import { calculateMarginalTax } from "../../utils/calculateMarginalTax";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 function TaxRateTable({
   taxRates,

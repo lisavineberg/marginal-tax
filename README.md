@@ -20,6 +20,7 @@ I used Nextjs because it plays well with Tailwind and with Docker, and is easy t
 - localize
 - custom dropdown
 - add tailwind base classes (ex h1-h6)
+- more tests
 
 ## Features
 

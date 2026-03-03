@@ -60,8 +60,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-start bg-zinc-50 font-sans">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-4 px-16 bg-white sm:items-start">
+    <div className="flex min-h-screen items-start justify-center bg-zinc-50 font-sans">
+      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center py-4 px-16 bg-white sm:items-start">
         <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-7xl">
           Welcome to Lisa&apos;s marginal tax calculator.
         </h1>
